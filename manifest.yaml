@@ -1,0 +1,43 @@
+# ==============================================================================
+#  manifest.yaml — Databricks Apps TEMPLATE definition
+# ==============================================================================
+# Used when this repo is registered as a custom app template. It describes the
+# app and (optionally) the RESOURCES a user must connect when they create an app
+# from this template (SQL warehouses, secrets, serving endpoints, etc.).
+#
+# Difference vs. app.yaml:
+#   manifest.yaml -> template metadata + which resources to PROMPT for at setup
+#   app.yaml      -> runtime command + how to USE those resources via valueFrom
+#
+# Resource spec docs: secret_spec | sql_warehouse_spec | serving_endpoint_spec |
+#                     uc_securable_spec | job_spec | experiment_spec
+# ==============================================================================
+
+# Schema version — only `1` is currently supported. (required)
+version: 1
+
+# Display name shown in the template/app gallery. (required)
+name: "Databricks Streamlit Template"
+
+# Short description shown under the name. (optional)
+description: "A commented starter for Databricks-hosted Streamlit apps."
+
+# ------------------------------------------------------------------------------
+# resource_specs: resources the user is prompted to attach when creating the
+# app.  (# OPTIONAL) The `name` here is the resource KEY you reference with
+# `valueFrom:` in app.yaml. Uncomment the ones your app needs.
+# ------------------------------------------------------------------------------
+# resource_specs:
+#   # SQL warehouse for running queries (most common).
+#   - name: "sql-warehouse"
+#     description: "Warehouse used to query Unity Catalog tables."
+#     sql_warehouse_spec:
+#       permission: "CAN_USE"
+#
+#   # A specific Unity Catalog securable (table/volume/etc.).
+#   - name: "table"
+#     description: "Unity Catalog table the app reads."
+#     uc_securable_spec:
+#       securable_full_name: "<catalog>.<schema>.<table>"
+#       securable_type: "TABLE"
+#       permission: "SELECT"

@@ -1,0 +1,44 @@
+# ==============================================================================
+#  app.yaml — Databricks Apps RUNTIME configuration
+# ==============================================================================
+# Controls HOW your app starts (the command) and WHAT it can see (env vars).
+# Databricks runs `command` directly (NOT in a shell), so shell features like
+# $VAR expansion or pipes do NOT work here. Lives in the project root.
+#
+# Docs: https://docs.databricks.com/dev-tools/databricks-apps/app-runtime
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# command: the process that starts your app.
+# For Streamlit, Databricks automatically presets the server host/port
+# (STREAMLIT_SERVER_ADDRESS=0.0.0.0, STREAMLIT_SERVER_PORT=$DATABRICKS_APP_PORT)
+# plus headless mode and CORS/XSRF settings, so this can stay minimal.
+# ------------------------------------------------------------------------------
+command:
+  - "streamlit"
+  - "run"
+  - "app.py"
+
+# ------------------------------------------------------------------------------
+# env: environment variables exposed to your app.  (# OPTIONAL block)
+#   - Use `value:`     for plain, NON-SECRET config (catalog/table names, flags).
+#   - Use `valueFrom:` to inject a RESOURCE you declared in manifest.yaml /
+#     attached in the app UI. The string must match the resource KEY.
+#     NEVER put secrets in `value:` — always use `valueFrom:` for them.
+#
+# valueFrom resolves to (common resource keys):
+#   sql-warehouse    -> the warehouse ID        (e.g. a1b2c3d4e5f67890)
+#   table            -> a Unity Catalog table's full name (catalog.schema.table)
+# ------------------------------------------------------------------------------
+env:
+  # --- Plain-text config (safe to commit) ---
+  - name: "APP_TABLE_NAME"
+    value: "<catalog>.<schema>.<table>"   # e.g. main.default.my_table
+
+  # --- SQL warehouse (uncomment after attaching a 'sql-warehouse' resource) ---
+  # - name: "DATABRICKS_WAREHOUSE_ID"
+  #   valueFrom: "sql-warehouse"
+
+  # --- Misc runtime flags -----------------------------------------------------
+  - name: "STREAMLIT_BROWSER_GATHER_USAGE_STATS"
+    value: "false"
