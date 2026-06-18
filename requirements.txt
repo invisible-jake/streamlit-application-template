@@ -6,8 +6,8 @@ streamlit~=1.38.0
 pandas~=2.2.3
 
 # --- Databricks connectivity (uncomment when your app queries data) ---
-# databricks-sdk~=0.30.0            # service-principal OAuth + WorkspaceClient
-# databricks-sql-connector~=3.1.0   # run SQL against a SQL warehouse
+databricks-sdk~=0.30.0            # service-principal OAuth + WorkspaceClient
+databricks-sql-connector~=3.1.0   # run SQL against a SQL warehouse
 
 # --- Other common extras (uncomment as needed) ---
 # plotly~=5.24.0                    # richer interactive charts
